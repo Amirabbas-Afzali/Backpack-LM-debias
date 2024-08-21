@@ -20,7 +20,7 @@ checkpoint_path = '/mnt/d/EE/Term6/Projects/LLM/BP/pytorch_model.bin'
 state_dict = torch.load(checkpoint_path, map_location=torch.device('cpu'))
 
 # Filter the external state_dict to retain only the keys present in the model's state_dict
-filtered_state_dict = {k: v for k, v in state_dict.items() if k in model.state_dict()}
+filtered_state_dict = {k: v for k, v in state_dict.items() if k in model.state_dict()} 
 
 model.load_state_dict(state_dict=filtered_state_dict)
 model.to(device)
@@ -30,6 +30,7 @@ model.eval()
 
 
 input_text = "Hi, What are you doing?"
+
 input_ids = tokenizer.encode(input_text, return_tensors="pt").to(device)
 
 # input = torch.randint(0, 50264, (1, 512), dtype=torch.long)
@@ -40,7 +41,7 @@ torch_out = model(
 
 out = torch.nn.functional.softmax(torch_out.logits, dim=-1) 
 
-print("Input shapes: ",out.shape)
+print("Output shapes: ",out.shape) 
 print("Senses shapes: ",torch_out.senses.shape)
 
 

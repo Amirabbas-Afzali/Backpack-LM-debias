@@ -165,6 +165,8 @@ class BackpackGPT2Model(BackpackGPT2PreTrainedModel):
         contextl_hidden_states = self.gpt2_model(input_ids, position_ids=position_ids).last_hidden_state # (bs, s, d)
         contextualization = self.sense_weight_net(contextl_hidden_states) # (bs, nv, s, s)
 
+        contextualization = self.customize_senses(contextualization)
+
         # Compute resulting outputs
         hidden_states = torch.sum(contextualization @ senses, dim=1) # (bs, nv, s, d) -> (bs, s, d)
         return BackpackGPT2BaseModelOutput(
@@ -172,6 +174,12 @@ class BackpackGPT2Model(BackpackGPT2PreTrainedModel):
             contextualization=contextualization,
             senses=senses
         )
+        
+    def customize_senses(self, contextualization): 
+        # contextualization[:,10,:,:] *= 0.4
+        # contextualization[:,2,:,:] *= 0.4
+        # contextualization[:,3,:,:] *= 0.4
+        return contextualization 
     
     def run_with_custom_contextualization(self, input_ids, contextualization):
         # Compute senses
@@ -219,8 +227,7 @@ class BackpackGPT2LMHeadModel(BackpackGPT2PreTrainedModel):
       return BackpackGPT2LMHeadModelOutput(
             logits=lm_logits,
             contextualization=contextualization,
-            senses=senses
-        )
+            senses=senses)
 
   def run_with_custom_contextualization(self, input_ids, contextualization):
       outputs = self.backpack.run_with_custom_contextualization(input_ids, contextualization)
