@@ -24,3 +24,15 @@ Flexible Model Design: Supports a variety of ranking loss functions and metrics,
 Scalability: Designed to handle large datasets and complex models, offering scalability for production-ready applications.
 
 Customizability: Allows customization of ranking models and loss functions, enabling experimentation with novel LTR techniques.
+
+
+# MS MARCO Dataset
+The first dataset was a question answering dataset featuring 100,000 real Bing questions and a human generated answer. Since then we released a 1,000,000 question dataset, a natural langauge generation dataset, a passage ranking dataset, keyphrase extraction dataset, crawling dataset, and a conversational search
+
+# NQ Dataset
+Natural Questions contains 307K training examples, 8K examples for development, and a further 8K examples for testing.
+In the paper, we demonstrate a human upper bound of 87% F1 on the long answer selection task, and 76% on the short answer selection task.
+We believe that matching human performance on this task will require significant progress in natural language understanding; we encourage you to help make this happen.
+To help spur development in open-domain question answering, we have created the Natural Questions (NQ) corpus, along with a challenge website based on this data. The NQ corpus contains questions from real users, and it requires QA systems to read and comprehend an entire Wikipedia article that may or may not contain the answer to the question. The inclusion of real user questions, and the requirement that solutions should read an entire page to find the answer, cause NQ to be a more realistic and challenging task than prior QA datasets.
+
+
